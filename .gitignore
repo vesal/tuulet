@@ -1,7 +1,9 @@
 # Ignore all .exe files
 *.exe
 *.html
+*.png
 
 # Ignore all .idea dir
 .idea/
 __pycache__/
+

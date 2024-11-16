@@ -1,4 +1,5 @@
 from saaparse import parse_FMI, parse_Windy, parse_Foreca, parse_Wind_guru
+from rasp import hae_rasp
 
 from playwright.sync_api import sync_playwright
 
@@ -69,6 +70,7 @@ def main():
         hae_FMI(context, tulos)
         hae_Windy(context, tulos)
         browser.close()
+        hae_rasp(tulos)
 
     for rivi in tulos:
         print("\t".join(rivi))
