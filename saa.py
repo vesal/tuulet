@@ -38,7 +38,7 @@ def hae_Windy(browser, tulos):
     :param tulos: taulukko jonne tulokset laitetaan
     """
     page = browser.new_page()
-    page.goto("https://www.windy.com/61.890/26.197/wind?61.608,26.197,8,m:fojagSO&rnd=2")
+    page.goto("https://www.windy.com/61.890/26.197/wind?61.608,26.197,8,m:fojagSO")
     # page.wait_for_selector("#detail-data-table")
     page.wait_for_load_state('networkidle')  # Odottaa, kunnes kaikki verkon pyynnöt ovat valmiit
     # page.reload()
@@ -65,9 +65,9 @@ def main():
         context = browser.new_context(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' +
                                                  'AppleWebKit/537.36 (KHTML, like Gecko) ' +
                                                  'Chrome/91.0.4472.124 Safari/537.36')
-        hae_Wind_guru(context, tulos)
-        hae_Foreca(context, tulos)
-        hae_FMI(context, tulos)
+#        hae_Wind_guru(context, tulos)
+#        hae_Foreca(context, tulos)
+#        hae_FMI(context, tulos)
         hae_Windy(context, tulos)
         browser.close()
         hae_rasp(tulos)
