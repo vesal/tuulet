@@ -43,7 +43,8 @@ def hae_Windy(browser, tulos):
     page.wait_for_load_state('networkidle')  # Odottaa, kunnes kaikki verkon pyynnöt ovat valmiit
     # page.reload()
     # page.wait_for_load_state('networkidle')  # Odottaa, kunnes kaikki verkon pyynnöt ovat valmiit
-    element = page.locator('span[data-do="metric,wind"].legend-right.metric-clickable').nth(0)
+    # element = page.locator('span[data-do="metric,wind"].legend-right.metric-clickable').nth(0)
+    element = page.locator('span.legend-right.metric-clickable').nth(0)
     element.click(force=True)
     # page.wait_for_load_state('networkidle')  # Odottaa, kunnes kaikki verkon pyynnöt ovat valmiit
     element.click(force=True)
@@ -51,7 +52,8 @@ def hae_Windy(browser, tulos):
     # page.wait_for_selector("tr.td-windCombined")
     # time.sleep(2)
     page.wait_for_timeout(1000)
-    page.locator(".td-hour").wait_for()
+    # page.locator(".td-hour").wait_for()
+    page.locator(".tr--hour").wait_for()
     page.screenshot(path='saa.png')
     document_content = page.content()  # Saa koko HTML-sisällön
     parse_Windy(document_content, tulos)
@@ -65,9 +67,9 @@ def main():
         context = browser.new_context(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' +
                                                  'AppleWebKit/537.36 (KHTML, like Gecko) ' +
                                                  'Chrome/91.0.4472.124 Safari/537.36')
-#        hae_Wind_guru(context, tulos)
-#        hae_Foreca(context, tulos)
-#        hae_FMI(context, tulos)
+        hae_Wind_guru(context, tulos)
+        hae_Foreca(context, tulos)
+        hae_FMI(context, tulos)
         hae_Windy(context, tulos)
         browser.close()
         hae_rasp(tulos)

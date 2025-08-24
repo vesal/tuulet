@@ -47,22 +47,21 @@ def hae_Windy(driver, tulos):
 
     WebDriverWait(driver, 20).until(
         ec.visibility_of_all_elements_located((By.CSS_SELECTOR,
-                                               'span[data-do="metric,'
-                                               'wind"].legend-right.metric-clickable'))
+                                               'span.legend-right.metric-clickable'))
     )
 
     time.sleep(1)
     # Etsi elementti ja klikkaa sitä
     element = driver.find_element(By.CSS_SELECTOR,
-                                  'span[data-do="metric,wind"].legend-right.metric-clickable')
+                                  'span.legend-right.metric-clickable')
     element.click()
     element.click()
 
-    allow_button = WebDriverWait(driver, 10).until(
-        ec.visibility_of_element_located((By.XPATH,
-                                          "//div[@class='button size-xl' and text()='Allow anonymous analytics']"))
-    )
-    allow_button.click()
+    # allow_button = WebDriverWait(driver, 10).until(
+    #     ec.visibility_of_element_located((By.XPATH,
+    #                                      "//div[@class='button size-xl' and text()='Allow anonymous analytics']"))
+    # )
+    # allow_button.click()
     time.sleep(1)
 
     driver.save_screenshot("sele.png")

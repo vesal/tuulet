@@ -123,8 +123,8 @@ def parse_FMI(document_content, tulos):
 
 def parse_Windy(document_content, tulos):
     soup = BeautifulSoup(document_content, 'html.parser')
-    table = soup.find(id='detail-data-table')
-    row = table.find('tr', class_='td-hour')
+    table = soup.find("table", class_="forecast-table__table")  # was id='detail-data-table'
+    row = table.find('tr', class_='tr--hour')
     times = row.find_all('td')
     indesies = [-2 for _ in range(50)]
     kello = ['8', '9', '11', '12', '14', '15', '17', '18']
@@ -139,9 +139,18 @@ def parse_Windy(document_content, tulos):
             indesies[i] = -1
             continue
 
-    rows = table.find_all('tr', class_='td-windCombined')
-    for cn in range(len(rows)):
-        row = rows[cn]
+    rows = table.find_all('tr', class_='tr--windCombined')
+    rowcount = len(rows)
+    cns = [0, 1, -1, 2, 3]
+    # perinteisesti käytetty vain (ECMWF, GFS, MeteoBlue, Icon 13 km),
+    # noiden järjestys Blue ja Icon vaihtunut nyt tulee
+    # ECMWF-9 km, GFS 22 km, Icon 13 km, MeteoBlue ja ICON-EU 7 km
+    # Jätetään tuon Icon 13 pois, niin saaaand sma järjestys kuin ennenkin
+    for cni in range(rowcount):
+        row = rows[cni]
+        cn = cns[cni]
+        if cn < 0:
+            continue
         cells = row.find_all('td')
         for i in range(len(cells)):
             cell = cells[i]
@@ -150,6 +159,8 @@ def parse_Windy(document_content, tulos):
             if index < -1:
                 break
             if index < 0:
+                continue
+            if not cell.contents:
                 continue
             mul = 1  # 0.514444
             ws = int(cell.contents[1].strip()) * mul
