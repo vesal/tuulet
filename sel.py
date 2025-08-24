@@ -1,4 +1,5 @@
 import time
+import os
 from saaparse import parse_FMI, parse_Windy, parse_Foreca, parse_Wind_guru
 
 from selenium import webdriver
@@ -88,7 +89,8 @@ def main():
                                 "Chrome/91.0.4472.124 Safari/537.36")
 
     # Aseta WebDriverin polku
-    service = Service('chromedriver.exe')
+    chromedriver_name = "chromedriver.exe" if os.name == "nt" else "chromedriver-linux64/chromedriver"
+    service = Service(chromedriver_name)
     driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
